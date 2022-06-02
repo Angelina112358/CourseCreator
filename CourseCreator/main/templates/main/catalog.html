@@ -5,4 +5,12 @@
 
 {% block content%}
 Каталог
+{% for el in products %}
+    <div class="alert alert-warning mt-2">
+        <h3>{{ el.name }}</h3>
+        <h2>{{ el.category }}</h2>
+        <h2>{{ el.price }}</h2>
+        <a href="#">Читать подробнее...</a>
+    </div>
+{% endfor %}
 {% endblock %}
