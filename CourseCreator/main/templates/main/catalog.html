@@ -1,16 +1,32 @@
-{% extends 'main/base.html' %}
-{% block title%}
-Каталог
+{% extends "main/base.html" %}
+{% load static %}
+{% block title %}
+{% if category %}{{ category.name }}{% else %}Products{% endif %}
 {% endblock %}
-
-{% block content%}
-Каталог
-{% for el in products %}
-    <div class="alert alert-warning mt-2">
-        <h3>{{ el.name }}</h3>
-        <h2>{{ el.category }}</h2>
-        <h2>{{ el.price }}</h2>
-        <a href="#">Читать подробнее...</a>
+{% block content %}
+    <div id="sidebar">
+        <h3>Categories</h3>
+        <ul>
+            <li {% if not category %} class="selected"{% endif %}>
+                <a href="{% url 'product_list' %}">All</a>
+            </li>
+            {% for c in categories %}
+                <li {% if category.slug == c.slug %} class="selected"{% endif %}>
+                    <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
-{% endfor %}
+    <div id="main" class="product-list">
+        <h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
+        {% for product in products %}
+            <div class="item">
+                <a href="{{ product.get_absolute_url }}">
+
+                </a>
+                <a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
+                ${{ product.price }}
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
