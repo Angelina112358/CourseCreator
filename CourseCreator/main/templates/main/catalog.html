@@ -7,25 +7,36 @@
     <div id="sidebar">
         <h3>Categories</h3>
         <ul>
-            <li {% if not category %} class="selected"{% endif %}>
+            <li class="selected">
                 <a href="{% url 'product_list' %}">All</a>
             </li>
             {% for c in categories %}
-                <li {% if category.slug == c.slug %} class="selected"{% endif %}>
+                <li class="selected">
                     <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
                 </li>
             {% endfor %}
         </ul>
     </div>
-    <div id="main" class="product-list">
+    <div id="main" class="product-list row mt-5 mb-2">
         <h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
         {% for product in products %}
-            <div class="item">
-                <a href="{{ product.get_absolute_url }}">
-
-                </a>
-                <a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
-                ${{ product.price }}
+            <div class="item col-md-6 ">
+                <div class="row g-0 rounded overflow-hidden flex-md-row mb-4 mr-1 shadow-sm h-md-250 position-relative elem">
+                    <div class="card mb-4 rounded-3 shadow-sm col p-4 d-flex flex-column position-static" style="background-color: #C0C0C0">
+                        <div class="card-header py-3">
+                            <h4 class="my-0 fw-normal">{{ product.name }}</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title">{{ product.price }}<small class="text-muted fw-light">/mo</small></h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li>{{ product.description }}</li>
+                            </ul>
+                            <a href="{{ product.get_absolute_url }}">
+                                <button type="button" class="w-100 btn btn-lg btn-warning">Читать подробнее</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         {% endfor %}
     </div>
