@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+{% block title%}
+Создать курс
+{% endblock %}
+
+{% block content%}
+    <h1>Создать курс</h1>
+    <h3>Добавить урок</h3>
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.category }}<br><br>
+        {{ form.name }}<br>
+        {{ form.description }}<br>
+        {{ form.price }}
+        <button type="submit" class="btn btn-warning mt-3">Добавить урок</button>
+        <span>{{ error }}</span>
+        {% block lesson %}
+
+        {% endblock %}
+    </form>
+{% endblock %}

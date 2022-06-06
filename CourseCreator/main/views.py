@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Category, Product
+from .forms import ProductForm
 
 
 def index(request):
@@ -28,5 +29,22 @@ def product_detail(request, id, slug):
     return render(request,
                   'main/product.html',
                   {'product': product})
+
+
+def creator(request):
+    error = ''
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            redirect('home')
+        else:
+            error = 'Неверная форма'
+    form = ProductForm()
+    context = {
+        'form': form,
+        'error': error
+    }
+    return render(request, 'main/creator.html', context)
 
 
