@@ -8,15 +8,15 @@
     <h3>Добавить урок</h3>
     <form method="post">
         {% csrf_token %}
-
         {{ form.category }}<br><br>
         {{ form.name }}<br>
+        {{ form.slug }}<br><br>
         {{ form.description }}<br>
-        {{ form.price }}
+        {{ form.price }}<br>
+        {{ form.stock }}<br>
         <button type="submit" class="btn btn-warning mt-3">Добавить урок</button>
         <span>{{ error }}</span>
         {% block lesson %}
-
         {% endblock %}
     </form>
 {% endblock %}

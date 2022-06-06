@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+    'cart',
     'bootstrap3',
 ]
 
@@ -79,10 +80,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'courses',
-	'USER': 'angel',
-	'PASSWORD': '123',
-	'HOST': '127.0.0.1',
-	'PORT': '5432',
+	    'USER': 'angel',
+	    'PASSWORD': '123',
+	    'HOST': '127.0.0.1',
+	    'PORT': '5432',
     }
 }
 
@@ -128,4 +129,6 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+CART_SESSION_ID = 'cart'
 
