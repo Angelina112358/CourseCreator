@@ -1,6 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views import View
+
 from .models import Category, Product
 from .forms import ProductForm
+
+
+def get_product_by_id(id):
+    product = Product.objects.get(id=id)
+    return product
 
 
 def index(request):

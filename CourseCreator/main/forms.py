@@ -1,5 +1,5 @@
 from .models import *
-from django.forms import ModelForm, TextInput, Textarea
+from django.forms import ModelForm, TextInput, Textarea, ChoiceField
 
 
 class ProductForm(ModelForm):
@@ -19,8 +19,6 @@ class ProductForm(ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Цена',
             }),
-            'Category': TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Категория',
-            }),
+
+
         }

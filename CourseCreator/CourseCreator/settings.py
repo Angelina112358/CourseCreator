@@ -25,7 +25,7 @@ SECRET_KEY = '(99bwes)!@o1cx_&ojl@)8xuio%4o*9a0a@uap+&&kypv6e3hc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -77,8 +77,12 @@ WSGI_APPLICATION = 'CourseCreator.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'courses',
+	'USER': 'angel',
+	'PASSWORD': '123',
+	'HOST': '127.0.0.1',
+	'PORT': '5432',
     }
 }
 
