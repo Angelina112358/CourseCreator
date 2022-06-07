@@ -1,11 +1,11 @@
 from .models import *
-from django.forms import ModelForm, TextInput, Textarea, ChoiceField
+from django.forms import ModelForm, TextInput, Textarea
 
 
 class ProductForm(ModelForm):
     class Meta:
         model = Product
-        fields = ['category', 'name', 'description', 'price']
+        fields = ['category', 'slug', 'name', 'description', 'price', 'stock']
         widgets = {
             'name': TextInput(attrs={
                 'class': 'form-control',
@@ -19,6 +19,12 @@ class ProductForm(ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Цена',
             }),
-
-
+            'stock': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Количество свободных мест',
+            }),
+            'slug': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Уникальный ключ',
+            })
         }
