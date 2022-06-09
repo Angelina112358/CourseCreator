@@ -4,7 +4,34 @@
 {% endblock %}
 
 {% block content%}
-
+<style>
+    .sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #C0C0C0;
+    overflow-x: hidden;
+    padding-top: 20px;
+    }
+</style>
+    <div class="sidenav">
+        <h3 class="mt-2">Categories</h3>
+        <ul>
+            <li class="selected mt-5">
+                <a href="{% url 'product_list' %}" style="background-color: #ffca2c; color: black" class="p-2">All</a>
+            </li>
+            {% for c in categories %}
+                <li class="selected">
+                    <a href="{{ c.get_absolute_url }}"
+                       style="background-color: #ffca2c; text-decoration: none; color: black;"
+                       class="p-2">{{ c.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
     <div class="alert alert-warning mt-2">
         <h2>{{ product.name }}</h2>
         <h2>{{ product.description }}</h2>
