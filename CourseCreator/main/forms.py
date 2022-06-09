@@ -6,9 +6,11 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 class ProductForm(ModelForm):
+
     class Meta:
         model = Product
         fields = ['category', 'slug', 'name', 'description', 'price', 'stock']
+        fields = ['category', 'name', 'slug', 'description', 'price', 'stock']
         widgets = {
             'name': TextInput(attrs={
                 'class': 'form-control',
