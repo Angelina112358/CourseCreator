@@ -1,8 +1,10 @@
+from django.contrib import messages
+from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 
 from .models import Category, Product
-from .forms import ProductForm
+from .forms import ProductForm, UserForm
 
 
 def get_product_by_id(id):
@@ -54,4 +56,52 @@ def creator(request):
     }
     return render(request, 'main/creator.html', context)
 
+
+class RegisterView(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            return redirect('home')
+        else:
+            form = UserForm()
+            context = {'form': form}
+            return render(request, 'main/register.html', context)
+
+    def post(self, request):
+        form = UserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, 'Account was successfully created for ' + username)
+            return redirect('login')
+        else:
+            context = {'form': form}
+            return render(request, 'main/register.html', context)
+
+
+class LoginView(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            return redirect('home')
+        else:
+            context = {}
+            return render(request, 'main/login.html', context)
+
+    def post(self, request):
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        context = {}
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.info(request, 'username or password is wrong')
+            return render(request, 'main/login.html', context)
+
+
+class LogOutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect('home')
 

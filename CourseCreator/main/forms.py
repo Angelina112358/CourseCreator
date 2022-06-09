@@ -1,5 +1,8 @@
 from .models import *
 from django.forms import ModelForm, TextInput, Textarea
+from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 
 class ProductForm(ModelForm):
@@ -28,3 +31,9 @@ class ProductForm(ModelForm):
                 'placeholder': 'Уникальный ключ',
             })
         }
+
+
+class UserForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
