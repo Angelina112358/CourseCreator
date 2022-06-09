@@ -4,7 +4,20 @@
 {% if category %}{{ category.name }}{% else %}Products{% endif %}
 {% endblock %}
 {% block content %}
-    <div id="sidebar">
+<style>
+    .sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #C0C0C0;
+    overflow-x: hidden;
+    padding-top: 20px;
+    }
+</style>
+    <div class="sidenav">
         <h3>Categories</h3>
         <ul>
             <li class="selected">
