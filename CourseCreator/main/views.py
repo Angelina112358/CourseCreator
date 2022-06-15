@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponseRedirect
 from django.views import View
 
 from .models import Category, Product
@@ -10,6 +10,15 @@ from .forms import ProductForm, UserForm
 def get_product_by_id(id):
     product = Product.objects.get(id=id)
     return product
+
+
+def delete_product(request, id):
+    context = {}
+    product = get_product_by_id(id)
+    if request.method == 'POST':
+        product.delete()
+        return HttpResponseRedirect("/")
+    return render(request, 'main/delete.html', context)
 
 
 class Index(View):

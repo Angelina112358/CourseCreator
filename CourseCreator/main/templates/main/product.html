@@ -32,10 +32,12 @@
             {% endfor %}
         </ul>
     </div>
-    <div class="alert alert-warning mt-2">
-        <h2>{{ product.name }}</h2>
-        <h2>{{ product.description }}</h2>
-        <h2>{{ product.price}}</h2>
-        <button type="button" class="btn btn-warning me-2">Пройти</button>
+    <div class="p-5 mb-4 bg-light rounded-3">
+      <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">{{ product.name }}</h1>
+        <p class="col-md-8 fs-4">{{ product.description }}</p>
+        <p class="col-md-8 fs-4">{{ product.price }}</p>
+        <button class="btn btn-warning px-4" type="button">Пройти</button>
+      </div>
     </div>
 {% endblock %}

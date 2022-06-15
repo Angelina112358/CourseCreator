@@ -1,6 +1,5 @@
 from .models import *
 from django.forms import ModelForm, TextInput, Textarea
-from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -10,7 +9,6 @@ class ProductForm(ModelForm):
     class Meta:
         model = Product
         fields = ['category', 'slug', 'name', 'description', 'price', 'stock']
-        fields = ['category', 'name', 'slug', 'description', 'price', 'stock']
         widgets = {
             'name': TextInput(attrs={
                 'class': 'form-control',
