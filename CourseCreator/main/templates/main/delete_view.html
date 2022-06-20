@@ -4,9 +4,7 @@
 {% endblock %}
 
 {% block content %}
-    <!-- Create a Form -->
     <form method="POST">
-        <!-- Security token by Django -->
         {% csrf_token %}
         <div class="px-4 py-5 my-5 text-center">
             <h1 class="display-5 fw-bold">Are you want to delete this item ?</h1>
