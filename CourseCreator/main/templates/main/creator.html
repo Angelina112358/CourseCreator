@@ -9,8 +9,8 @@
     <form method="post">
         {% csrf_token %}
         {{ form.category }}<br><br>
-        {{ form.name }}<br>
         {{ form.slug }}<br><br>
+        {{ form.name }}<br>
         {{ form.description }}<br>
         {{ form.price }}<br>
         {{ form.stock }}<br>

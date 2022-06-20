@@ -8,6 +8,7 @@ class ProductForm(ModelForm):
 
     class Meta:
         model = Product
+        exclude = ['author']
         fields = ['category', 'slug', 'name', 'description', 'price', 'stock']
         widgets = {
             'name': TextInput(attrs={

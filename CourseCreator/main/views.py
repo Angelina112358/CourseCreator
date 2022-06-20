@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponseRedirect
 from django.views import View
+from django.views.generic.edit import DeleteView
 
 from .models import Category, Product
 from .forms import ProductForm, UserForm
@@ -12,13 +13,32 @@ def get_product_by_id(id):
     return product
 
 
-def delete_product(request, id):
+def update_view(request, id):
     context = {}
-    product = get_product_by_id(id)
-    if request.method == 'POST':
-        product.delete()
-        return HttpResponseRedirect("/")
-    return render(request, 'main/delete.html', context)
+
+    obj = get_product_by_id(id)
+
+    form = ProductForm(request.POST or None, instance=obj)
+
+    if form.is_valid():
+        form.save()
+        return render(request, "main/edit_done.html", context)
+
+    context["form"] = form
+
+    return render(request, "main/edit.html", context)
+
+
+def delete_view(request, id):
+    context = {}
+
+    obj = get_object_or_404(Product, id=id)
+
+    if request.method == "POST":
+        obj.delete()
+        return render(request, "main/delete_done.html", context)
+
+    return render(request, "main/delete_view.html", context)
 
 
 class Index(View):
@@ -61,7 +81,9 @@ class Creator(View):
     def post(self, request):
         form = ProductForm(request.POST)
         if form.is_valid():
-            form.save()
+            response = form.save(commit=False)
+            response.author = request.user
+            response.save()
             return render(request, 'main/creator_done.html')
         else:
             context = {'form': form}
