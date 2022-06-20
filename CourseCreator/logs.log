@@ -1,0 +1,6 @@
+2022-06-20 18:23:52,629 - INFO - views - views.py - get index view
+2022-06-20 18:23:56,301 - INFO - views - views.py - product list
+2022-06-20 18:23:58,186 - INFO - views - views.py - get update view
+2022-06-20 18:24:03,053 - INFO - views - views.py - get update view
+2022-06-20 18:24:03,098 - INFO - views - views.py - post update view
+2022-06-20 18:24:05,034 - INFO - views - views.py - product list

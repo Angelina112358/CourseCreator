@@ -132,3 +132,30 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 CART_SESSION_ID = 'cart'
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'formatters': {
+        'main_format': {
+            'format': '{asctime} - {levelname} - {module} - {filename} - {message}',
+            'style': '{',
+        },
+    },
+
+    'handlers': {
+        'file': {
+            'class': 'logging.FileHandler',
+            'formatter': 'main_format',
+            'filename': 'logs.log',
+        },
+    },
+
+    'loggers': {
+        'main': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}

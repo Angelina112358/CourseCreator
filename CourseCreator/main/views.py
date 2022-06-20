@@ -8,6 +8,8 @@ from .models import Category, Product
 from .forms import ProductForm, UserForm
 
 import asyncio
+import logging
+logger = logging.getLogger('main')
 
 
 @sync_to_async
@@ -29,6 +31,7 @@ def get_filter():
 
 
 def update_view(request, id):
+    logger.info('get update view')
     context = {}
 
     obj = asyncio.run(get_product_by_id(id))
@@ -36,6 +39,7 @@ def update_view(request, id):
     form = ProductForm(request.POST or None, instance=obj)
 
     if form.is_valid():
+        logger.info('post update view')
         form.save()
         return render(request, "main/edit_done.html", context)
 
@@ -45,11 +49,13 @@ def update_view(request, id):
 
 
 def delete_view(request, id):
+    logger.info('get delete view')
     context = {}
 
     obj = asyncio.run(get_product_by_id(id))
 
     if request.method == "POST":
+        logger.info('post delete view')
         obj.delete()
         return render(request, "main/delete_done.html", context)
 
@@ -58,11 +64,13 @@ def delete_view(request, id):
 
 class Index(View):
     def get(self, request):
+        logger.info('get index view')
         return render(request, 'main/index.html')
 
 
 class ProductList(View):
     def get(self, request, category_slug=None):
+        logger.info('product list')
         category = None
         categories = asyncio.run(get_all())
         products = asyncio.run(get_filter())
@@ -77,6 +85,7 @@ class ProductList(View):
 
 class ProductDetail(View):
     def get(self, request, id, slug):
+        logger.info('product detail')
         product = get_object_or_404(Product,
                                     id=id,
                                     slug=slug,
@@ -86,6 +95,7 @@ class ProductDetail(View):
 
 class Creator(View):
     def get(self, request):
+        logger.info('get creator')
         if request.user.is_authenticated:
             form = ProductForm()
             context = {'form': form}
@@ -94,6 +104,7 @@ class Creator(View):
             return redirect('login')
 
     def post(self, request):
+        logger.info('post creator')
         form = ProductForm(request.POST)
         if form.is_valid():
             response = form.save(commit=False)
@@ -107,6 +118,7 @@ class Creator(View):
 
 class RegisterView(View):
     def get(self, request):
+        logger.info('get register view')
         if request.user.is_authenticated:
             return redirect('home')
         else:
@@ -115,6 +127,7 @@ class RegisterView(View):
             return render(request, 'main/register.html', context)
 
     def post(self, request):
+        logger.info('post register view')
         form = UserForm(request.POST)
         if form.is_valid():
             form.save()
@@ -128,6 +141,7 @@ class RegisterView(View):
 
 class LoginView(View):
     def get(self, request):
+        logger.info('get login view')
         if request.user.is_authenticated:
             return redirect('home')
         else:
@@ -135,6 +149,7 @@ class LoginView(View):
             return render(request, 'main/login.html', context)
 
     def post(self, request):
+        logger.info('post login view')
         username = request.POST.get('username')
         password = request.POST.get('password')
         context = {}
@@ -150,6 +165,7 @@ class LoginView(View):
 
 class LogOutView(View):
     def get(self, request):
+        logger.info('get logout view')
         logout(request)
         return redirect('home')
 
