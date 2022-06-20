@@ -5,7 +5,6 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 class ProductForm(ModelForm):
-
     class Meta:
         model = Product
         exclude = ['author']

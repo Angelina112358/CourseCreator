@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Product
+from .models import Category, Product, Lesson
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -20,4 +20,14 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Product, ProductAdmin)
+
+
+class LessonAdmin(admin.ModelAdmin):
+    list_display = ['id_product', 'name', 'slug', 'description', 'created', 'updated']
+    prepopulated_fields = {'slug': ('name',)}
+
+
+admin.site.register(Lesson, LessonAdmin)
+
+
 

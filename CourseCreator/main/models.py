@@ -47,6 +47,12 @@ class Product(models.Model):
         return self.name
 
 
-
+class Lesson(models.Model):
+    id_product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='lessons')
+    name = models.CharField(max_length=200, db_index=True)
+    slug = models.SlugField(max_length=200, db_index=True)
+    description = models.TextField(blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
 

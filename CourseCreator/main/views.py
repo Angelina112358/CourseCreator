@@ -1,22 +1,37 @@
+from asgiref.sync import sync_to_async
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
-from django.shortcuts import render, get_object_or_404, redirect, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
-from django.views.generic.edit import DeleteView
 
 from .models import Category, Product
 from .forms import ProductForm, UserForm
 
+import asyncio
 
+
+@sync_to_async
 def get_product_by_id(id):
     product = Product.objects.get(id=id)
     return product
 
 
+@sync_to_async
+def get_all():
+    categories = Category.objects.all()
+    return categories
+
+
+@sync_to_async
+def get_filter():
+    products = Product.objects.filter(available=True)
+    return products
+
+
 def update_view(request, id):
     context = {}
 
-    obj = get_product_by_id(id)
+    obj = asyncio.run(get_product_by_id(id))
 
     form = ProductForm(request.POST or None, instance=obj)
 
@@ -32,7 +47,7 @@ def update_view(request, id):
 def delete_view(request, id):
     context = {}
 
-    obj = get_object_or_404(Product, id=id)
+    obj = asyncio.run(get_product_by_id(id))
 
     if request.method == "POST":
         obj.delete()
@@ -49,8 +64,8 @@ class Index(View):
 class ProductList(View):
     def get(self, request, category_slug=None):
         category = None
-        categories = Category.objects.all()
-        products = Product.objects.filter(available=True)
+        categories = asyncio.run(get_all())
+        products = asyncio.run(get_filter())
         if category_slug:
             category = get_object_or_404(Category, slug=category_slug)
             products = products.filter(category=category)
